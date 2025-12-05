@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Terminal, Play, RotateCcw, Grid3X3, BarChart3, List } from 'lucide-react';
+import { Terminal, Play, RotateCcw } from 'lucide-react';
 
 interface TerminalSimulatorProps {
   problemId: string;
@@ -180,9 +180,9 @@ const TerminalSimulator: React.FC<TerminalSimulatorProps> = ({ problemId }) => {
         } else {
             // Array stats
             const arr = inputVal ? inputVal.split(',').map(Number) : [12, 45, 7, 23, 56, 89, 34, 12];
-            addLine(`Array: [${arr.join(', ')}]`);
             
             if (problemId === 'u4-p2') { // Max
+                addLine(`Array: [${arr.join(', ')}]`);
                 let max = arr[0];
                 for(let i=0; i<arr.length; i++) {
                     await new Promise(r => setTimeout(r, 200));
@@ -192,6 +192,7 @@ const TerminalSimulator: React.FC<TerminalSimulatorProps> = ({ problemId }) => {
                 addLine(`Max Value: ${max}`);
             } 
             else if (problemId === 'u4-p4') { // Median
+                addLine(`Array: [${arr.join(', ')}]`);
                 addLine("Sorting array...");
                 await new Promise(r => setTimeout(r, 500));
                 const sorted = [...arr].sort((a,b)=>a-b);
@@ -199,23 +200,61 @@ const TerminalSimulator: React.FC<TerminalSimulatorProps> = ({ problemId }) => {
                 addLine(`Sorted: [${sorted.join(', ')}]`);
                 addLine(`Median: ${sorted.length%2!==0 ? sorted[Math.floor(sorted.length/2)] : (sorted[sorted.length/2-1]+sorted[sorted.length/2])/2}`);
             }
-            else if (problemId === 'u4-p1') { // Circular Prime
-                 const rots = [];
-                 let s = n.toString();
-                 for(let i=0; i<s.length; i++) {
-                     rots.push(parseInt(s));
-                     s = s.substring(1) + s[0];
+            else if (problemId === 'u4-p1') { // Circular Prime (Logic Update)
+                 let num = n;
+                 let digits = 0;
+                 let temp = num;
+                 // Count digits
+                 while(temp > 0) { digits++; temp = Math.floor(temp/10); }
+
+                 // Calculate power
+                 let multiplier = 1;
+                 for(let i=1; i<digits; i++) multiplier *= 10;
+
+                 addLine(`Input: ${num}`);
+                 
+                 // Generate Rotations
+                 const rotations: number[] = [];
+                 let currentVal = num;
+                 for(let i=0; i<digits; i++) {
+                     rotations.push(currentVal);
+                     let lastDigit = currentVal % 10;
+                     let rest = Math.floor(currentVal / 10);
+                     currentVal = (lastDigit * multiplier) + rest;
                  }
-                 addLine(`Rotations: ${rots.join(', ')}`);
-                 for(let r of rots) {
-                     await new Promise(k => setTimeout(k, 300));
-                     // Simple check
-                     let isP = true;
-                     for(let j=2; j<r; j++) if(r%j==0) isP=false;
-                     addLine(`${r} is ${isP ? 'Prime' : 'Not Prime'}`);
+
+                 addLine(`Rotations: ${rotations.join(', ')}`);
+                 setVisualData({ type: 'STATS', data: rotations, activeIdx: -1 });
+
+                 let allPrime = true;
+
+                 // Check Loop
+                 for(let i=0; i<rotations.length; i++) {
+                     const val = rotations[i];
+                     setVisualData({ type: 'STATS', data: rotations, activeIdx: i });
+                     await new Promise(r => setTimeout(r, 600));
+
+                     let isPrime = true;
+                     if (val <= 1) isPrime = false;
+                     for(let k=2; k*k<=val; k++) {
+                         if(val % k === 0) isPrime = false;
+                     }
+
+                     addLine(`${val} is ${isPrime ? "Prime" : "Not Prime"}`);
+                     if(!isPrime) allPrime = false;
+                 }
+
+                 setVisualData({ type: 'STATS', data: rotations, activeIdx: -1 });
+                 addLine("----------------");
+                 
+                 if(allPrime) {
+                     addLine(`Result: ${n} is a CIRCULAR PRIME`);
+                 } else {
+                     addLine(`Result: ${n} is NOT a circular prime`);
                  }
             }
             else { // Mean Range Mode
+                 addLine(`Array: [${arr.join(', ')}]`);
                  let sum = arr.reduce((a,b)=>a+b,0);
                  addLine(`Sum: ${sum}, Mean: ${(sum/arr.length).toFixed(2)}`);
                  setVisualData({ type: 'ARRAY_STATIC', data: arr });

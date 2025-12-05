@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRightLeft, CheckCircle, XCircle, RefreshCw, BarChart2, Scale } from 'lucide-react';
+import { ArrowRightLeft, CheckCircle, XCircle, RefreshCw, BarChart2, Scale, GraduationCap, GitCompare } from 'lucide-react';
 
 interface FormSimulatorProps {
   problemId: string;
@@ -29,12 +29,11 @@ const FormSimulator: React.FC<FormSimulatorProps> = ({ problemId }) => {
     const bmi = weight / (height * height);
     let category = '';
     let color = '';
-    let percent = 0;
     
-    if (bmi < 18.5) { category = 'Underweight'; color = 'text-blue-500'; percent = 15; }
-    else if (bmi < 25) { category = 'Normal'; color = 'text-green-500'; percent = 50; }
-    else if (bmi < 30) { category = 'Overweight'; color = 'text-orange-500'; percent = 80; }
-    else { category = 'Obese'; color = 'text-red-600'; percent = 95; }
+    if (bmi < 18.5) { category = 'Underweight'; color = 'text-blue-500'; }
+    else if (bmi < 25) { category = 'Normal'; color = 'text-green-500'; }
+    else if (bmi < 30) { category = 'Overweight'; color = 'text-orange-500'; }
+    else { category = 'Obese'; color = 'text-red-600'; }
 
     return (
       <div className="space-y-8 max-w-lg mx-auto py-4">
@@ -152,6 +151,13 @@ const FormSimulator: React.FC<FormSimulatorProps> = ({ problemId }) => {
              for(let i=1;i<=n;i++) f*=i;
              valid = true;
              msg = `Factorial(${n}) = ${f}`;
+        } else if (type === 'GRADE') {
+             valid = true;
+             if(n>=80) msg = "Grade A";
+             else if(n>=60) msg = "Grade B";
+             else if(n>=50) msg = "Grade C";
+             else if(n>=40) msg = "Grade D";
+             else msg = "Grade F (Fail)";
         }
         
         setCheckResult({valid, msg});
@@ -159,13 +165,13 @@ const FormSimulator: React.FC<FormSimulatorProps> = ({ problemId }) => {
       }, 1000); // Fake processing delay
   };
 
-  const renderNumberCheck = (type: 'PALINDROME' | 'PRIME' | 'ARMSTRONG' | 'FACTORIAL') => {
+  const renderNumberCheck = (type: 'PALINDROME' | 'PRIME' | 'ARMSTRONG' | 'FACTORIAL' | 'GRADE') => {
     return (
         <div className="py-8 space-y-6 max-w-md mx-auto">
              <div className="relative">
                  <input 
                     type="number" 
-                    placeholder="Enter number..." 
+                    placeholder={type === 'GRADE' ? "Enter marks (0-100)..." : "Enter number..."}
                     value={numInput} 
                     onChange={(e) => setNumInput(e.target.value)}
                     className="w-full p-4 pl-6 text-2xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white rounded-full shadow-inner text-center tracking-widest outline-none focus:border-blue-400 transition-colors"
@@ -185,12 +191,18 @@ const FormSimulator: React.FC<FormSimulatorProps> = ({ problemId }) => {
                     <div className={`p-4 rounded-xl border-2 flex items-center gap-4 ${checkResult.valid ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800 text-green-800 dark:text-green-400' : 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800 text-red-800 dark:text-red-400'}`}>
                         {checkResult.valid ? <CheckCircle className="w-8 h-8 shrink-0"/> : <XCircle className="w-8 h-8 shrink-0"/>}
                         <div>
-                            <div className="font-bold text-lg">{checkResult.valid ? "Success" : "Failed"}</div>
+                            <div className="font-bold text-lg">{checkResult.valid ? "Result" : "Failed"}</div>
                             <div className="text-sm opacity-80">{checkResult.msg}</div>
                         </div>
                     </div>
                 )}
              </div>
+             {type === 'GRADE' && (
+                 <div className="text-center text-xs text-slate-400">
+                     <GraduationCap className="w-8 h-8 mx-auto mb-2 opacity-50"/>
+                     80-100: A | 60-79: B | 50-59: C | 40-49: D | 0-39: F
+                 </div>
+             )}
         </div>
     );
   };
@@ -255,7 +267,7 @@ const FormSimulator: React.FC<FormSimulatorProps> = ({ problemId }) => {
       )
   };
 
-  const renderMultiMath = (type: 'POWER' | 'AMICABLE' | 'BASE' | 'AP' | 'GP') => {
+  const renderMultiMath = (type: 'POWER' | 'AMICABLE' | 'BASE' | 'AP' | 'GP' | 'FIB_CHECK') => {
       const {x, y, z} = multiInput;
       
       const renderResult = () => {
@@ -315,6 +327,17 @@ const FormSimulator: React.FC<FormSimulatorProps> = ({ problemId }) => {
                             <input type="number" className="w-24 p-2 border border-slate-300 dark:border-slate-600 rounded bg-white dark:bg-slate-900 text-slate-900 dark:text-white" value={z} onChange={e => setMultiInput({...multiInput, z: +e.target.value})}/>
                         </div>
                       </>
+                  ) : type === 'FIB_CHECK' ? (
+                        <>
+                            <div className="flex flex-col">
+                                <label className="text-xs font-bold text-slate-500 dark:text-slate-400">Number 1</label>
+                                <input type="number" className="w-24 p-2 border border-slate-300 dark:border-slate-600 rounded bg-white dark:bg-slate-900 text-slate-900 dark:text-white" value={x} onChange={e => setMultiInput({...multiInput, x: +e.target.value})}/>
+                            </div>
+                            <div className="flex flex-col">
+                                <label className="text-xs font-bold text-slate-500 dark:text-slate-400">Number 2</label>
+                                <input type="number" className="w-24 p-2 border border-slate-300 dark:border-slate-600 rounded bg-white dark:bg-slate-900 text-slate-900 dark:text-white" value={y} onChange={e => setMultiInput({...multiInput, y: +e.target.value})}/>
+                            </div>
+                        </>
                   ) : (
                       <>
                         <div className="flex flex-col">
@@ -358,10 +381,59 @@ const FormSimulator: React.FC<FormSimulatorProps> = ({ problemId }) => {
                        })()}
                    </div>
                )}
+               {type === 'FIB_CHECK' && (
+                   <div className="text-center">
+                       {(() => {
+                           let a=0, b=1, c;
+                           const n1 = Math.min(x,y);
+                           const n2 = Math.max(x,y);
+                           while(b < n2) { c=a+b; a=b; b=c; }
+                           const isConsec = (a===n1 && b===n2);
+                           return isConsec ? 
+                             <div className="p-4 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded-lg inline-flex items-center gap-2">
+                                <CheckCircle className="w-6 h-6"/> Yes, {n1} and {n2} are consecutive Fibonacci numbers.
+                             </div> :
+                             <div className="p-4 bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 rounded-lg inline-flex items-center gap-2">
+                                <XCircle className="w-6 h-6"/> No, they are not consecutive.
+                             </div>
+                       })()}
+                   </div>
+               )}
                
                {renderResult()}
           </div>
       );
+  }
+
+  const renderStringOps = () => {
+     const [str, setStr] = useState("HELLO");
+     const [rev, setRev] = useState("");
+     
+     return (
+         <div className="py-8 space-y-6 max-w-md mx-auto text-center">
+             <input 
+                type="text" 
+                value={str} 
+                onChange={(e) => setStr(e.target.value)} 
+                className="w-full p-4 border border-slate-300 dark:border-slate-600 rounded bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-center text-xl tracking-widest uppercase"
+                placeholder="ENTER STRING"
+             />
+             <div className="flex justify-between text-sm text-slate-500 dark:text-slate-400 px-4">
+                 <span>Length: {str.length}</span>
+             </div>
+             <button 
+                onClick={() => setRev(str.split('').reverse().join(''))}
+                className="bg-purple-600 hover:bg-purple-500 text-white px-6 py-2 rounded-full flex items-center gap-2 mx-auto"
+             >
+                <ArrowRightLeft className="w-4 h-4"/> Reverse
+             </button>
+             {rev && (
+                 <div className="p-4 bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300 rounded border border-purple-200 dark:border-purple-800 font-mono text-xl tracking-widest">
+                     {rev}
+                 </div>
+             )}
+         </div>
+     )
   }
 
   // Render Logic
@@ -374,24 +446,15 @@ const FormSimulator: React.FC<FormSimulatorProps> = ({ problemId }) => {
       {problemId === 'u3-p9' && renderNumberCheck('PRIME')} 
       {problemId === 'u3-p10' && renderNumberCheck('ARMSTRONG')}
       {problemId === 'u4-p8a' && renderNumberCheck('FACTORIAL')}
+      {problemId === 'u3-p4' && renderNumberCheck('GRADE')}
       {problemId === 'u2-p2' && renderSort()}
       {problemId === 'u4-p8c' && renderMultiMath('POWER')}
       {problemId === 'u3-p8' && renderMultiMath('AMICABLE')}
       {problemId === 'u3-p11' && renderMultiMath('BASE')}
       {problemId === 'u2-p8a' && renderMultiMath('AP')}
       {problemId === 'u2-p8b' && renderMultiMath('GP')}
-      
-      {problemId === 'u4-p5' && (
-          <div className="text-center py-12 text-slate-400">
-             String operations logic is best visualized in code trace. <br/> See "Algorithm" tab for details.
-          </div>
-      )}
-      
-      {['u2-p11', 'u3-p4'].includes(problemId) && (
-          <div className="text-center py-10 font-bold text-slate-400">
-              Interactive Form logic similar to others. <br/> Refer to Code/Algorithm.
-          </div>
-      )}
+      {problemId === 'u2-p11' && renderMultiMath('FIB_CHECK')}
+      {problemId === 'u4-p5' && renderStringOps()}
     </div>
   );
 };
