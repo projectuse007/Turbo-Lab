@@ -129,7 +129,7 @@ export const LAB_DATA: LabUnit[] = [
         ],
         cCode: `${turboCHeader}    int n, i;
     clrscr();
-    printf("Enter n: ");
+    printf("Enter limit n (positive integer): ");
     scanf("%d", &n);
     printf("Num\\tSquare\\tCube\\n");
     for(i=1; i<=n; i++) {
@@ -162,7 +162,7 @@ export const LAB_DATA: LabUnit[] = [
         ],
         cCode: `${turboCHeader}    int n, i;
     clrscr();
-    printf("Enter n: ");
+    printf("Enter range limit n: ");
     scanf("%d", &n);
     printf("Odd numbers: ");
     for(i=1; i<=n; i++) {
@@ -235,7 +235,7 @@ export const LAB_DATA: LabUnit[] = [
         ],
         cCode: `${turboCHeader}    int i, j, n;
     clrscr();
-    printf("Enter rows: ");
+    printf("Enter number of rows (n): ");
     scanf("%d", &n);
     for(i=1; i<=n; i++) {
         for(j=1; j<=i; j++) printf("*");
@@ -266,7 +266,7 @@ export const LAB_DATA: LabUnit[] = [
         ],
         cCode: `${turboCHeader}    int i, j, n;
     clrscr();
-    printf("Enter rows: ");
+    printf("Enter number of rows (n): ");
     scanf("%d", &n);
     for(i=n; i>=1; i--) {
         for(j=1; j<=i; j++) printf("*");
@@ -297,7 +297,7 @@ export const LAB_DATA: LabUnit[] = [
         ],
         cCode: `${turboCHeader}    int i, j, n;
     clrscr();
-    printf("Enter rows: ");
+    printf("Enter number of rows (n): ");
     scanf("%d", &n);
     for(i=n; i>=1; i--) {
         for(j=1; j<=i; j++) printf("%d", j);
@@ -328,7 +328,7 @@ export const LAB_DATA: LabUnit[] = [
         ],
         cCode: `${turboCHeader}    int i, j, n;
     clrscr();
-    printf("Enter rows: ");
+    printf("Enter number of rows (n): ");
     scanf("%d", &n);
     for(i=1; i<=n; i++) {
         for(j=1; j<=i; j++) printf("%d", j);
@@ -359,7 +359,7 @@ export const LAB_DATA: LabUnit[] = [
         ],
         cCode: `${turboCHeader}    int i, j, n;
     clrscr();
-    printf("Enter n: ");
+    printf("Enter side length (n): ");
     scanf("%d", &n);
     for(i=1; i<=n; i++) {
         for(j=1; j<=n; j++) {
@@ -393,7 +393,7 @@ export const LAB_DATA: LabUnit[] = [
         ],
         cCode: `${turboCHeader}    int i, j, n, k;
     clrscr();
-    printf("Enter n: ");
+    printf("Enter number of rows (n): ");
     scanf("%d", &n);
     for(i=1; i<=n; i++) {
         for(k=1; k<=n-i; k++) printf(" ");
@@ -427,7 +427,7 @@ export const LAB_DATA: LabUnit[] = [
         ],
         cCode: `${turboCHeader}    int i, j, n;
     clrscr();
-    printf("Enter n: ");
+    printf("Enter side length (n): ");
     scanf("%d", &n);
     for(i=1; i<=n; i++) {
         for(j=1; j<=n; j++) {
@@ -464,7 +464,7 @@ export const LAB_DATA: LabUnit[] = [
         ],
         cCode: `${turboCHeader}    int i, j, n, k;
     clrscr();
-    printf("Enter n: ");
+    printf("Enter half-height (n): ");
     scanf("%d", &n);
     // Upper
     for(i=1; i<=n; i++) {
@@ -501,7 +501,7 @@ export const LAB_DATA: LabUnit[] = [
         ],
         cCode: `${turboCHeader}    int a, d, n, i, term;
     clrscr();
-    printf("Enter a, d, n: ");
+    printf("Enter first term (a), difference (d), number of terms (n): ");
     scanf("%d %d %d", &a, &d, &n);
     printf("AP Series: ");
     for(i=0; i<n; i++) {
@@ -532,7 +532,7 @@ export const LAB_DATA: LabUnit[] = [
         ],
         cCode: `${turboCHeader}    int a, r, n, i, term;
     clrscr();
-    printf("Enter a, r, n: ");
+    printf("Enter first term (a), ratio (r), number of terms (n): ");
     scanf("%d %d %d", &a, &r, &n);
     printf("GP Series: ");
     term = a;
@@ -567,7 +567,7 @@ export const LAB_DATA: LabUnit[] = [
         ],
         cCode: `${turboCHeader}    int n, t1 = 0, t2 = 1, nextTerm, i;
     clrscr();
-    printf("Enter number of terms: ");
+    printf("Enter number of terms (n): ");
     scanf("%d", &n);
     printf("Fibonacci Series: %d, %d, ", t1, t2);
     
@@ -603,7 +603,7 @@ export const LAB_DATA: LabUnit[] = [
         ],
         cCode: `${turboCHeader}    int n, a=0, b=1, c=1, d, i;
     clrscr();
-    printf("Enter n: ");
+    printf("Enter number of terms (n): ");
     scanf("%d", &n);
     printf("%d %d %d ", a, b, c);
     for(i=4; i<=n; i++) {
@@ -642,7 +642,7 @@ export const LAB_DATA: LabUnit[] = [
         cCode: `${turboCHeader}    int n1, n2, a=0, b=1, c;
     int isConsecutive = 0;
     clrscr();
-    printf("Enter n1 and n2: ");
+    printf("Enter two numbers to check (n1 n2): ");
     scanf("%d %d", &n1, &n2);
     
     if((n1==0 && n2==1) || (n1==1 && n2==1)) isConsecutive = 1;
@@ -720,7 +720,7 @@ export const LAB_DATA: LabUnit[] = [
         cCode: `${turboCHeader}    int i, n;
     float x, sum=1.0, term=1.0;
     clrscr();
-    printf("Enter x and n: ");
+    printf("Enter exponent (x) and number of terms (n): ");
     scanf("%f %d", &x, &n);
     
     for(i=1; i<n; i++) {
@@ -919,7 +919,7 @@ export const LAB_DATA: LabUnit[] = [
         ],
         cCode: `${turboCHeader}    int marks;
     clrscr();
-    printf("Enter marks: ");
+    printf("Enter marks (0-100): ");
     scanf("%d", &marks);
     
     if(marks >= 80) printf("Grade A");
@@ -983,7 +983,7 @@ export const LAB_DATA: LabUnit[] = [
         ],
         cCode: `${turboCHeader}    int n, i, flag=1;
     clrscr();
-    printf("Enter n: ");
+    printf("Enter positive integer n: ");
     scanf("%d", &n);
     if(n == 0 || n == 1) flag=0;
     for(i=2; i<=n/2; ++i) {
@@ -1017,7 +1017,7 @@ export const LAB_DATA: LabUnit[] = [
         ],
         cCode: `${turboCHeader}    int n, i=2;
     clrscr();
-    printf("Enter n: ");
+    printf("Enter positive integer n: ");
     scanf("%d", &n);
     printf("Prime Factors: ");
     while(n > 1) {
@@ -1055,7 +1055,7 @@ export const LAB_DATA: LabUnit[] = [
         ],
         cCode: `${turboCHeader}    int n1, n2, sum1=0, sum2=0, i;
     clrscr();
-    printf("Enter n1 n2: ");
+    printf("Enter two positive integers n1 and n2: ");
     scanf("%d %d", &n1, &n2);
     
     for(i=1; i<n1; i++) if(n1%i==0) sum1+=i;
@@ -1087,7 +1087,7 @@ export const LAB_DATA: LabUnit[] = [
         ],
         cCode: `${turboCHeader}    int n, i, sum=0;
     clrscr();
-    printf("Enter n: ");
+    printf("Enter positive integer n: ");
     scanf("%d", &n);
     for(i=1; i<n; i++) {
         if(n%i==0) sum += i;
@@ -1121,7 +1121,7 @@ export const LAB_DATA: LabUnit[] = [
         ],
         cCode: `${turboCHeader}    int n, r, sum=0, temp;
     clrscr();
-    printf("Enter n: ");
+    printf("Enter integer n: ");
     scanf("%d", &n);
     temp = n;
     while(n>0) {
@@ -1209,7 +1209,7 @@ export const LAB_DATA: LabUnit[] = [
         cCode: `${turboCHeader}    long n, rev=0;
     int r;
     clrscr();
-    printf("Enter n: ");
+    printf("Enter positive integer: ");
     scanf("%ld", &n);
     while(n>0) { rev = rev*10 + n%10; n/=10; }
     while(rev>0) {
@@ -1384,7 +1384,7 @@ export const LAB_DATA: LabUnit[] = [
             '  d = countDigits(n)',
             '  Loop d times:',
             '    If isPrime(n) is false: Set flag=0, Break',
-            '    Rotate n: n = (n%10)*pow(10, d-1) + (n/10)',
+            '    Rotate n: n = (n%10)*p + (n/10)',
             '  If flag==1: Print "Circular Prime"',
             '  Else: Print "Not Circular Prime"',
             'Stop'
@@ -1409,7 +1409,7 @@ int countDigits(int n) {
 void main() {
     int n, i, d, p, flag=1;
     clrscr();
-    printf("Enter n: ");
+    printf("Enter positive integer: ");
     scanf("%d", &n);
     d = countDigits(n);
     p = pow(10, d-1);
@@ -1485,8 +1485,9 @@ void main() {
         ],
         cCode: `${turboCHeader}    int arr[20], n, i, j, sum=0, max, min, mode, maxCount=0, count;
     clrscr();
-    printf("Enter n: ");
+    printf("Enter array size n: ");
     scanf("%d", &n);
+    printf("Enter %d elements: ", n);
     for(i=0; i<n; i++) {
         scanf("%d", &arr[i]);
         sum+=arr[i];
@@ -1527,8 +1528,9 @@ void main() {
         ],
         cCode: `${turboCHeader}    int arr[20], n, i, j, temp;
     clrscr();
-    printf("Enter n: ");
+    printf("Enter array size n: ");
     scanf("%d", &n);
+    printf("Enter %d elements: ", n);
     for(i=0; i<n; i++) scanf("%d", &arr[i]);
     
     // Sort
@@ -1692,7 +1694,7 @@ long fact(int n) {
 void main() {
     int n;
     clrscr();
-    printf("Enter n: ");
+    printf("Enter number (n): ");
     scanf("%d", &n);
     printf("Fact: %ld", fact(n));
     getch();
@@ -1728,6 +1730,7 @@ void disp(int n) {
 void main() {
     int n;
     clrscr();
+    printf("Enter a positive integer: ");
     scanf("%d", &n);
     disp(n);
     getch();
@@ -1764,6 +1767,7 @@ long power(int x, int y) {
 void main() {
     int x,y;
     clrscr();
+    printf("Enter base (x) and exponent (y): ");
     scanf("%d %d", &x, &y);
     printf("%ld", power(x,y));
     getch();
